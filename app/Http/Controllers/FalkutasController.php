@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Falkutas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class FalkutasController extends Controller
 {
@@ -12,7 +13,7 @@ class FalkutasController extends Controller
      */
     public function index()
     {
-        $falkutas = Falkutas::all();
+        $falkutas = Falkutas::orderBy('created_at','desc')->get();
         return view('falkutas.list-falkutas',compact('falkutas'));
     }
 
@@ -29,38 +30,52 @@ class FalkutasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        Falkutas::create([
+            'name' => $request->name_falkutas,
+            'dekan' => $request->name_dekan
+        ]);
+
+            return redirect('/falkutas');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Falkutas $falkutas)
+    public function show(Falkutas $falkuta)
     {
-       //
+       return view('falkutas.detail-falkutas',compact('falkuta'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Falkutas $falkutas)
+    public function edit(Falkutas $falkuta)
     {
-      return view('falkutas.edit-falkutas');
+      return view('falkutas.edit-falkutas',[
+        'falkutas'=> $falkuta
+      ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Falkutas $falkutas)
+    public function update(Request $request, Falkutas $falkuta)
     {
-        //
+        $falkuta->update([
+            'name'=> $request->name_falkutas,
+            'dekan'=> $request->name_dekan
+        ]);
+        return redirect('/falkutas');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Falkutas $falkutas)
+    public function destroy(Falkutas $falkuta)
     {
-        //
+        $falkuta->delete();
+
+        return redirect()->back();
     }
 }
