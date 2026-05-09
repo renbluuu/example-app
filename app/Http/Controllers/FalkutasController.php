@@ -30,13 +30,17 @@ class FalkutasController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $request->validate([
+            'name_falkutas'=> ['required','min:3'],
+            'name_dekan'=>['required','min:3']
+        ]);
+
         Falkutas::create([
             'name' => $request->name_falkutas,
             'dekan' => $request->name_dekan
         ]);
 
-            return redirect('/falkutas');
+            return redirect('/falkutas')>with('success',"Data Berhasil Di Tambah");
     }
 
     /**
@@ -54,7 +58,7 @@ class FalkutasController extends Controller
     {
       return view('falkutas.edit-falkutas',[
         'falkutas'=> $falkuta
-      ]);
+      ])->with('success',"Data Berhasil Di Edit");
     }
 
     /**
@@ -62,11 +66,16 @@ class FalkutasController extends Controller
      */
     public function update(Request $request, Falkutas $falkuta)
     {
+         $request->validate([
+            'name_falkutas'=> ['required','min:3'],
+            'name_dekan'=>['required','min:3']
+        ]);
+
         $falkuta->update([
             'name'=> $request->name_falkutas,
             'dekan'=> $request->name_dekan
         ]);
-        return redirect('/falkutas');
+        return redirect('/falkutas')->with('success',"Data Berhasil Di Update");
     }
 
     /**
@@ -76,6 +85,6 @@ class FalkutasController extends Controller
     {
         $falkuta->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success',"Data Berhasil Di Hapus");
     }
 }

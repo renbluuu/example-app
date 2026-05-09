@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="Detail-Falkutas">
     <div>
         <h1>Detail Falkutas</h1>
         <table class="table">
