@@ -53,6 +53,16 @@
                             Falkutas
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('prodi.index')?"active bg-primary text-white":"" }}" href="/prodi/create">
+                            Tambah Prodi
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('falkutas.index')?"active bg-primary text-white":"" }}" href="/falkutas/create">
+                            Tambah Falkutas
+                        </a>
+                    </li>
                 </ul>
             </div>
 

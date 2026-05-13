@@ -40,7 +40,7 @@ class FalkutasController extends Controller
             'dekan' => $request->name_dekan
         ]);
 
-            return redirect('/falkutas')>with('success',"Data Berhasil Di Tambah");
+            return redirect('/falkutas')->with('success',"Data Berhasil Di Tambah");
     }
 
     /**
