@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Falkutas;
 use App\Models\Prodi;
 use App\Http\Requests\StoreProdiRequest;
 use App\Http\Requests\UpdateProdiRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProdiController extends Controller
 {
@@ -13,7 +15,9 @@ class ProdiController extends Controller
      */
     public function index()
     {
-        //
+       $prodi = Prodi::all();
+
+    return view('prodi.list-prodi', compact('prodi'));
     }
 
     /**
@@ -21,8 +25,9 @@ class ProdiController extends Controller
      */
     public function create()
     {
-        $falkutas = Prodi::all();
+        $falkutas = Falkutas::all();
         return view("prodi.add-prodi",compact('falkutas'));
+
     }
 
     /**
@@ -31,6 +36,21 @@ class ProdiController extends Controller
     public function store(StoreProdiRequest $request)
     {
         $validate = $request->safe();
+       
+        Storage::disk("public")->
+       putFile("profile_kaprodi", $validate->file('photo_kaprodi'));
+
+       $filePath = Storage::disk("public")->
+       putFile("profile_kaprodi", $validate->file('photo_kaprodi'));
+
+       Prodi::create([
+        'falkutas_id'=> $validate->falkutas_id,
+        'nama_prodi'=> $validate->nama_prodi,
+        'nama_kaprodi'=> $validate->nama_kaprodi,
+        'photo_kaprodi'=> $filePath
+       ]);
+
+       return redirect('/prodi')->with('success','Data Prodi Berhasil Di Tambah');
         
     }
 
@@ -39,7 +59,7 @@ class ProdiController extends Controller
      */
     public function show(Prodi $prodi)
     {
-        //
+        
     }
 
     /**

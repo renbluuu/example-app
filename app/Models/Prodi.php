@@ -16,4 +16,8 @@ use SoftDeletes;
         'nama_kaprodi',
         'photo_kaprodi'
     ];
+
+    public function falkutas(){
+        return $this->belongsTo(Falkutas::class);
+    }
 }

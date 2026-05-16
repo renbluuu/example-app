@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('prodi', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Falkutas::class)->constrained('falkutas');
-            $table->string('name_prodi');
-            $table->string('name_kaprodi');
+            $table->string('nama_prodi');
+            $table->string('nama_kaprodi');
             $table->string('photo_kaprodi');
             $table->timestamps();
             $table->softDeletes();

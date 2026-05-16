@@ -7,8 +7,17 @@
                 <h3 class="mb-0">Tambah Prodi</h3>
             </div>
 
+            @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
             <div class="card-body">
-                <form action="/prodi/store" method="POST" enctype="multipart/form-data">
+                <form action="/prodi" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     {{-- Pilih Fakultas --}}
@@ -76,7 +85,7 @@
                             name="photo_kaprodi"
                             id="photo_kaprodi"
                             class="form-control"
-                            accept=".jpg,.jpeg,.png"
+                            accept=".jpg,.jpeg,.png,.jfif"
                         >
                     </div>
 

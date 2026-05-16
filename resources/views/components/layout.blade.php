@@ -54,7 +54,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('prodi.index')?"active bg-primary text-white":"" }}" href="/prodi/create">
+                        <a
+                            class="nav-link {{ request()->routeIs('prodi.index') ? 'active bg-primary text-white' : '' }}" href="/prodi">
+                            Prodi
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('prodi.index')?"active bg-primary text-white":'' }}" href="/prodi/create">
                             Tambah Prodi
                         </a>
                     </li>
@@ -72,6 +78,19 @@
     {{-- Content --}}
     <main class="container py-4">
         {{ $slot }}
+         {{-- Alert Success --}}
+    @session('success')
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+        </div>
+    @endsession
     </main>
 
     <script
