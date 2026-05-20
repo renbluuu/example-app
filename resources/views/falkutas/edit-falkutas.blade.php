@@ -30,8 +30,21 @@
         class="form-control" 
         placeholder="Nama Dekan">
       </div>
-      <button type="submit" class="btn btn-warning">
-        Simpan
-      </button>
+      
+      {{-- Button --}}
+                    <div class="d-flex gap-2">
+
+                        <button 
+                            type="submit" 
+                            class="btn btn-warning"
+                        >
+                            Update
+                        </button>
+
+                        <a href="/prodi" class="btn btn-secondary">
+                            Kembali
+                        </a>
+
+                    </div>
     </form>
 </x-layout>

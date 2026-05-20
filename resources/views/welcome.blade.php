@@ -1,6 +1,6 @@
 <x-layout title="Welcome">
     <h1>
-        Belajar Laravel View
+        Belajar Laravel View Bersama Ko Celvine
     </h1>
-    <a href="/falkutas">List Falkutas</a>
+    
 </x-layout>

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Falkutas::class)->constrained('falkutas');
             $table->string('nama_prodi');
             $table->string('nama_kaprodi');
-            $table->string('photo_kaprodi');
+            $table->string('photo_kaprodi')->nullable()->change();
             $table->timestamps();
             $table->softDeletes();
         });

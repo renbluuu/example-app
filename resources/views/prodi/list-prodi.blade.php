@@ -37,10 +37,45 @@
                     @foreach ($prodi as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->falkutas->name }}</td>
                         <td>{{ $item->nama_prodi }}</td>
                         <td>{{ $item->nama_kaprodi }}</td>
-                        <td>{{ $item->falkutas->name }}</td>
                         <td><img src="{{ asset('storage/'.$item->photo_kaprodi) }}" class="img-thumbnail w-25"></td>
+                        <td>
+                             <div class="d-flex gap-2">
+
+                                    <a
+                                        href="/prodi/{{ $item->id }}"
+                                        class="btn btn-dark btn-sm"
+                                    >
+                                        Detail
+                                    </a>
+
+                                    <a
+                                        href="/prodi/{{ $item->id }}/edit"
+                                        class="btn btn-warning btn-sm"
+                                    >
+                                        Edit
+                                    </a>
+
+                                    <form
+                                        action="/prodi/{{ $item->id }}"
+                                        method="POST"
+                                        onsubmit="return confirm('Yakin ingin menghapus data ini?')"
+                                    >
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button
+                                            type="submit"
+                                            class="btn btn-danger btn-sm"
+                                        >
+                                            Hapus
+                                        </button>
+                                    </form>
+
+                                </div>
+                        </td>
                     </tr>
                         
                     @endforeach

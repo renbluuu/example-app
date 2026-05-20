@@ -59,7 +59,7 @@ class ProdiController extends Controller
      */
     public function show(Prodi $prodi)
     {
-        
+        return view('prodi.detail-prodi',compact('prodi'));
     }
 
     /**
@@ -67,7 +67,9 @@ class ProdiController extends Controller
      */
     public function edit(Prodi $prodi)
     {
-        //
+        return view('prodi.edit-prodi',[
+        'prodi'=> $prodi
+      ])->with('success',"Data Berhasil Di Edit");
     }
 
     /**
@@ -75,7 +77,53 @@ class ProdiController extends Controller
      */
     public function update(UpdateProdiRequest $request, Prodi $prodi)
     {
-        //
+    $request->validate([
+        'nama_prodi' => ['required', 'min:3'],
+        'nama_kaprodi' => ['required', 'min:3'],
+        'photo_kaprodi' => ['nullable', 'image']
+    ]);
+
+    $filePath = $prodi->photo_kaprodi;
+
+    // Hapus foto jika checkbox dicentang
+    if ($request->hapus_foto == 1) {
+
+        if ($prodi->photo_kaprodi) {
+
+            Storage::disk('public')
+                ->delete($prodi->photo_kaprodi);
+
+            $filePath = null;
+        }
+    }
+
+    // Upload foto baru
+    if ($request->hasFile('photo_kaprodi')) {
+
+        // Hapus foto lama
+        if ($prodi->photo_kaprodi) {
+
+            Storage::disk('public')
+                ->delete($prodi->photo_kaprodi);
+        }
+
+        // Upload baru
+        $filePath = Storage::disk('public')
+            ->putFile(
+                'profile_kaprodi',
+                $request->file('photo_kaprodi')
+            );
+    }
+
+    // Update data
+    $prodi->update([
+        'nama_prodi' => $request->nama_prodi,
+        'nama_kaprodi' => $request->nama_kaprodi,
+        'photo_kaprodi' => $filePath
+    ]);
+
+    return redirect('/prodi')
+        ->with('success', 'Data berhasil diupdate');
     }
 
     /**
@@ -83,6 +131,8 @@ class ProdiController extends Controller
      */
     public function destroy(Prodi $prodi)
     {
-        //
+         $prodi->delete();
+
+        return redirect()->back()->with('success',"Data Berhasil Di Hapus");
     }
 }
