@@ -69,6 +69,11 @@
                             Tambah Falkutas
                         </a>
                     </li>
+                    <li class="nav-item">
+                     <form action="/logout" method="post">
+                        <button type="submit" class="btn btn-outline-danger">Logout</button>
+                    </form>
+                    </li>
                 </ul>
             </div>
 
