@@ -21,7 +21,43 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(
+            RegisterResponseContract::class,
+            function () {
+                return new class implements RegisterResponseContract {
+                    public function toResponse($request)
+                    {
+                        if ($request->expectsJson()) {
+                            return response()->json([
+                                'success' => true,
+                            ]);
+                        }
+
+                        return redirect()->intended(Fortify::redirects('register'));
+                    }
+                };
+            }
+        );
+
+        $this->app->singleton(
+            LoginResponseContract::class,
+            function () {
+                return new class implements LoginResponseContract {
+                    public function toResponse($request)
+                    {
+                        if ($request->expectsJson()) {
+                            return response()->json([
+                                'success' => true,
+                                'user' => $request->user(),
+                                'token' => $request->user()->createToken('api')->plainTextToken
+                            ]);
+                        }
+
+                        return redirect()->intended(Fortify::redirects('login'));
+                    }
+                };
+            }
+        );
     }
 
     /**
