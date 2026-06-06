@@ -13,6 +13,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
+use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -30,6 +32,8 @@ class FortifyServiceProvider extends ServiceProvider
                         if ($request->expectsJson()) {
                             return response()->json([
                                 'success' => true,
+                                  'user' => $request->user(),
+                                'token' => $request->user()->createToken('api')->plainTextToken
                             ]);
                         }
 
